@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+
+# Go
+*.exe
+*.test
+*.prof
+
+# Project Specific
+blobs/
+manifests/
+phish-forge/captured_credentials.json
+payload-chef/output/*
+!payload-chef/output/.gitkeep
+payload-chef/debug*
+
+# Editors
+.vscode/
+.idea/
+*.swp

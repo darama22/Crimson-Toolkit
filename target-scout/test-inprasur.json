@@ -1,0 +1,74 @@
+{
+  "company": "Inprasur",
+  "scan_date": "2026-01-22T13:47:39.879398",
+  "linkedin": {
+    "company": {
+      "company_name": "Inprasur",
+      "method": "public_search",
+      "data": {
+        "found_links": [],
+        "search_method": "Google indexed pages"
+      },
+      "note": "LinkedIn restricts automated access. Consider using LinkedIn Sales Navigator or manual research."
+    },
+    "employees": {
+      "method": "limited_public_search",
+      "employees": [],
+      "note": "Full employee enumeration requires LinkedIn API access or manual research. Alternative: Use Google dorks like 'site:linkedin.com/in [company name]' manually.",
+      "recommended_tools": [
+        "LinkedIn Sales Navigator (paid)",
+        "Hunter.io (email finding)",
+        "Google dorking (manual)"
+      ]
+    },
+    "scan_status": "completed_with_limitations",
+    "recommendation": "For full LinkedIn OSINT, consider: 1) Manual research, 2) LinkedIn Premium/Sales Navigator, 3) Third-party OSINT platforms (Maltego, SpiderFoot)"
+  },
+  "github": {
+    "repositories": [],
+    "users": [],
+    "tech_stack": {
+      "primary_languages": {},
+      "total_repos_analyzed": 0
+    },
+    "scan_status": "completed"
+  },
+  "domains": {
+    "guessed_domain": "inprasur.es",
+    "domain_exists": true,
+    "tlds_tried": [
+      "inprasur.com",
+      "inprasur.es"
+    ],
+    "subdomains": [
+      "www.inprasur.es",
+      "ftp.inprasur.es"
+    ],
+    "dns_records": {
+      "A": [
+        "193.203.188.114"
+      ],
+      "MX": [
+        "mx00.ionos.es.",
+        "mx01.ionos.es."
+      ],
+      "TXT": [
+        "\"v=spf1 include:_spf-eu.ionos.com ~all\"",
+        "\"brevo-code:8f07c5165e64fd68a4c0eb319729f1be\""
+      ],
+      "NS": [
+        "ns1107.ui-dns.de.",
+        "ns1108.ui-dns.org.",
+        "ns1023.ui-dns.com.",
+        "ns1112.ui-dns.biz."
+      ]
+    },
+    "scan_status": "completed"
+  },
+  "summary": {
+    "target": "Inprasur",
+    "findings": [
+      "Domain active with 2 discovered subdomains"
+    ]
+  }
+}

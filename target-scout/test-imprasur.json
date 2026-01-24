@@ -1,0 +1,48 @@
+{
+  "company": "Imprasur",
+  "scan_date": "2026-01-22T13:42:07.120660",
+  "linkedin": {
+    "company": {
+      "company_name": "Imprasur",
+      "method": "public_search",
+      "data": {
+        "found_links": [],
+        "search_method": "Google indexed pages"
+      },
+      "note": "LinkedIn restricts automated access. Consider using LinkedIn Sales Navigator or manual research."
+    },
+    "employees": {
+      "method": "limited_public_search",
+      "employees": [],
+      "note": "Full employee enumeration requires LinkedIn API access or manual research. Alternative: Use Google dorks like 'site:linkedin.com/in [company name]' manually.",
+      "recommended_tools": [
+        "LinkedIn Sales Navigator (paid)",
+        "Hunter.io (email finding)",
+        "Google dorking (manual)"
+      ]
+    },
+    "scan_status": "completed_with_limitations",
+    "recommendation": "For full LinkedIn OSINT, consider: 1) Manual research, 2) LinkedIn Premium/Sales Navigator, 3) Third-party OSINT platforms (Maltego, SpiderFoot)"
+  },
+  "github": {
+    "repositories": [],
+    "users": [],
+    "tech_stack": {
+      "primary_languages": {},
+      "total_repos_analyzed": 0
+    },
+    "scan_status": "completed"
+  },
+  "domains": {
+    "guessed_domain": "imprasur.com",
+    "domain_exists": false,
+    "subdomains": [],
+    "dns_records": {},
+    "scan_status": "completed",
+    "note": "Domain imprasur.com does not resolve. Try manual domain input."
+  },
+  "summary": {
+    "target": "Imprasur",
+    "findings": []
+  }
+}

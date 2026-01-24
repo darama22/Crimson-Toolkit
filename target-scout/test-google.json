@@ -1,0 +1,214 @@
+{
+  "company": "Google",
+  "scan_date": "2026-01-22T13:28:41.493432",
+  "linkedin": {
+    "company": {
+      "company_name": "Google",
+      "method": "public_search",
+      "data": {
+        "found_links": [],
+        "search_method": "Google indexed pages"
+      },
+      "note": "LinkedIn restricts automated access. Consider using LinkedIn Sales Navigator or manual research."
+    },
+    "employees": {
+      "method": "limited_public_search",
+      "employees": [],
+      "note": "Full employee enumeration requires LinkedIn API access or manual research. Alternative: Use Google dorks like 'site:linkedin.com/in [company name]' manually.",
+      "recommended_tools": [
+        "LinkedIn Sales Navigator (paid)",
+        "Hunter.io (email finding)",
+        "Google dorking (manual)"
+      ]
+    },
+    "scan_status": "completed_with_limitations",
+    "recommendation": "For full LinkedIn OSINT, consider: 1) Manual research, 2) LinkedIn Premium/Sales Navigator, 3) Third-party OSINT platforms (Maltego, SpiderFoot)"
+  },
+  "github": {
+    "repositories": [
+      {
+        "name": "mui/material-ui",
+        "description": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
+        "stars": 97670,
+        "language": "JavaScript",
+        "url": "https://github.com/mui/material-ui"
+      },
+      {
+        "name": "protocolbuffers/protobuf",
+        "description": "Protocol Buffers - Google's data interchange format",
+        "stars": 70356,
+        "language": "C++",
+        "url": "https://github.com/protocolbuffers/protobuf"
+      },
+      {
+        "name": "adam-p/markdown-here",
+        "description": "Google Chrome, Firefox, and Thunderbird extension that lets you write email in Markdown and render it before sending.",
+        "stars": 60123,
+        "language": "JavaScript",
+        "url": "https://github.com/adam-p/markdown-here"
+      },
+      {
+        "name": "rclone/rclone",
+        "description": "\"rsync for cloud storage\" - Google Drive, S3, Dropbox, Backblaze B2, One Drive, Swift, Hubic, Wasabi, Google Cloud Storage, Azure Blob, Azure Files, Yandex Files",
+        "stars": 55079,
+        "language": "Go",
+        "url": "https://github.com/rclone/rclone"
+      },
+      {
+        "name": "pathwaycom/llm-app",
+        "description": "Ready-to-run cloud templates for RAG, AI pipelines, and enterprise search with live data. \ud83d\udc33Docker-friendly.\u26a1Always in sync with Sharepoint, Google Drive, S3, Kafka, PostgreSQL, real-time data APIs, and more.",
+        "stars": 54541,
+        "language": "Jupyter Notebook",
+        "url": "https://github.com/pathwaycom/llm-app"
+      },
+      {
+        "name": "google/material-design-icons",
+        "description": "Material Design icons by Google (Material Symbols)",
+        "stars": 52775,
+        "language": null,
+        "url": "https://github.com/google/material-design-icons"
+      },
+      {
+        "name": "google/guava",
+        "description": "Google core libraries for Java",
+        "stars": 51436,
+        "language": "Java",
+        "url": "https://github.com/google/guava"
+      },
+      {
+        "name": "alex/what-happens-when",
+        "description": "An attempt to answer the age old interview question \"What happens when you type google.com into your browser and press enter?\"",
+        "stars": 42650,
+        "language": null,
+        "url": "https://github.com/alex/what-happens-when"
+      },
+      {
+        "name": "google-research/bert",
+        "description": "TensorFlow code and pre-trained models for BERT",
+        "stars": 39824,
+        "language": "Python",
+        "url": "https://github.com/google-research/bert"
+      },
+      {
+        "name": "google/styleguide",
+        "description": "Style guides for Google-originated open-source projects",
+        "stars": 38879,
+        "language": "HTML",
+        "url": "https://github.com/google/styleguide"
+      }
+    ],
+    "users": [
+      {
+        "username": "google",
+        "profile_url": "https://github.com/google",
+        "avatar": "https://avatars.githubusercontent.com/u/1342004?v=4"
+      },
+      {
+        "username": "GoogleCloudPlatform",
+        "profile_url": "https://github.com/GoogleCloudPlatform",
+        "avatar": "https://avatars.githubusercontent.com/u/2810941?v=4"
+      },
+      {
+        "username": "google-deepmind",
+        "profile_url": "https://github.com/google-deepmind",
+        "avatar": "https://avatars.githubusercontent.com/u/8596759?v=4"
+      },
+      {
+        "username": "google-research",
+        "profile_url": "https://github.com/google-research",
+        "avatar": "https://avatars.githubusercontent.com/u/43830688?v=4"
+      },
+      {
+        "username": "googleapis",
+        "profile_url": "https://github.com/googleapis",
+        "avatar": "https://avatars.githubusercontent.com/u/16785467?v=4"
+      },
+      {
+        "username": "google-gemini",
+        "profile_url": "https://github.com/google-gemini",
+        "avatar": "https://avatars.githubusercontent.com/u/161781182?v=4"
+      },
+      {
+        "username": "GoogleChromeLabs",
+        "profile_url": "https://github.com/GoogleChromeLabs",
+        "avatar": "https://avatars.githubusercontent.com/u/31970254?v=4"
+      },
+      {
+        "username": "GoogleChrome",
+        "profile_url": "https://github.com/GoogleChrome",
+        "avatar": "https://avatars.githubusercontent.com/u/1778935?v=4"
+      },
+      {
+        "username": "googlefonts",
+        "profile_url": "https://github.com/googlefonts",
+        "avatar": "https://avatars.githubusercontent.com/u/6466306?v=4"
+      },
+      {
+        "username": "googlemaps",
+        "profile_url": "https://github.com/googlemaps",
+        "avatar": "https://avatars.githubusercontent.com/u/3717923?v=4"
+      }
+    ],
+    "tech_stack": {
+      "primary_languages": {
+        "JavaScript": 2,
+        "C++": 1,
+        "Go": 1,
+        "Jupyter Notebook": 1,
+        "Java": 1
+      },
+      "total_repos_analyzed": 10
+    },
+    "scan_status": "completed"
+  },
+  "domains": {
+    "guessed_domain": "google.com",
+    "domain_exists": true,
+    "subdomains": [
+      "www.google.com",
+      "mail.google.com",
+      "admin.google.com",
+      "vpn.google.com",
+      "api.google.com",
+      "blog.google.com",
+      "shop.google.com"
+    ],
+    "dns_records": {
+      "A": [
+        "142.251.208.238"
+      ],
+      "MX": [
+        "smtp.google.com."
+      ],
+      "TXT": [
+        "\"globalsign-smime-dv=CDYX+XFHUw2wml6/Gb8+59BsH31KzUr6c1l2BPvqKX8=\"",
+        "\"onetrust-domain-verification=6d685f1d41a94696ad7ef771f68993e0\"",
+        "\"facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95\"",
+        "\"docusign=1b0a6754-49b1-4db5-8540-d2c12664b289\"",
+        "\"MS=E4A68B9AB2BB9670BCE15412F62916164C0B20BB\"",
+        "\"docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e\"",
+        "\"google-site-verification=wD8N7i1JTNTkezJ49swvWW48f8_9xveREV4oB-0Hf5o\"",
+        "\"google-site-verification=4ibFUgB-wXLQ_S7vsXVomSTVamuOXBiVAzpR5IZ87D0\"",
+        "\"apple-domain-verification=30afIBcvSuDV2PLX\"",
+        "\"cisco-ci-domain-verification=47c38bc8c4b74b7233e9053220c1bbe76bcc1cd33c7acf7acd36cd6a5332004b\"",
+        "\"google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ\"",
+        "\"v=spf1 include:_spf.google.com ~all\""
+      ],
+      "NS": [
+        "ns4.google.com.",
+        "ns2.google.com.",
+        "ns3.google.com.",
+        "ns1.google.com."
+      ]
+    },
+    "scan_status": "completed"
+  },
+  "summary": {
+    "target": "Google",
+    "findings": [
+      "Found 10 public GitHub repositories",
+      "Primary tech stack: JavaScript",
+      "Domain active with 7 discovered subdomains"
+    ]
+  }
+}
