@@ -29,7 +29,7 @@ Automated intelligence gathering and target profiling.
 
 **Terminal Preview:**
 ```console
-$ python target-scout.py --company "TechCorp"
+$ ./crimson target-scout/target-scout.py --company "TechCorp"
 ╔═══════════════════════════════════════════════════════════╗
 ║                      TARGET-SCOUT v1.0                    ║
 ║               Automated OSINT & Reconnaissance            ║
@@ -52,7 +52,7 @@ Create realistic phishing campaigns with AI-generated content.
 
 **Terminal Preview:**
 ```console
-$ python phish-forge.py generate --template instagram
+$ ./crimson phish-forge/phish-forge.py generate --template instagram
 [+] AI Engine: Generating personalized phishing email...
 [+] Template: Instagram Login
 [+] Server: Started on port 8080
@@ -71,7 +71,7 @@ Generate evasive payloads with advanced anti-detection features.
 
 **Terminal Preview:**
 ```console
-$ python payload-chef.py create --type reverse-shell
+$ ./crimson payload-chef/payload-chef.py create --type reverse-shell
 [+] Evasion Level: High
 [+] Obfuscation: Applied (Polymorphic)
 [+] AMSI Bypass: Injected
@@ -115,7 +115,7 @@ Detect vulnerabilities and malware signatures in source code.
 
 **Terminal Preview:**
 ```console
-$ python vuln-oracle.py malware.py
+$ ./crimson vuln-oracle/vuln-oracle.py malware.py
 ╭──── ⚠ 4 THREATS DETECTED - Risk Score: 100 ─────────╮
 │ ┏━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━┓ │
 │ ┃ Type        ┃ Severity ┃   Line   ┃ Description ┃ │
@@ -138,7 +138,7 @@ Identify security defenses on target networks without triggering alerts.
 
 **Terminal Preview:**
 ```console
-$ python defense-radar.py 192.168.1.1
+$ ./crimson defense-radar/defense-radar.py 192.168.1.1
 [*] Scanning target: 192.168.1.1
 [*] Phase 1: Port Discovery
 ⠸ Socket scanning 14 common ports...
@@ -152,44 +152,35 @@ $ python defense-radar.py 192.168.1.1
 
 ---
 
-## Installation
+## Installation (Easy)
 
-### Prerequisites
-
-*   **Python 3.8+**
-*   **System Tools:** `nmap` (recommended), `Go` (for payload generation)
-
-### Setup
+### Kali Linux / Ubuntu / Debian
+Use the automated installer script to handle all dependencies and setup (including `venv`):
 
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/darama22/Crimson-Toolkit.git
 cd Crimson-Toolkit
 
-# Install dependencies
-pip install -r requirements.txt
-
-# (Optional) pull Ollama model for AI features
-ollama pull llama3.1:8b
+# 2. Run the installer
+chmod +x install.sh
+./install.sh
 ```
 
----
+### Using the Toolkit
+Once installed, use the generated `crimson` launcher to run any tool easily:
 
-## Usage
-
-Each tool is located in its own directory with dedicated documentation.
-
-**Example: Running the Vulnerability Scanner**
 ```bash
-cd vuln-oracle
-python vuln-oracle.py target_file.py
+# General syntax
+./crimson <tool-directory>/<tool-script.py> [arguments]
+
+# Examples
+./crimson target-scout/target-scout.py --help
+./crimson c2-chameleon/c2-chameleon.py
+./crimson vuln-oracle/vuln-oracle.py file.py
 ```
 
-**Example: Running the C2 Server**
-```bash
-cd c2-chameleon
-python c2-chameleon.py
-```
+This method automatically handles the Python Virtual Environment for you.
 
 ---
 
@@ -197,13 +188,14 @@ python c2-chameleon.py
 
 ```
 crimson-toolkit/
+├── install.sh             # One-click installer
+├── crimson                # Universal launcher (generated)
 ├── target-scout/          # OSINT tool
 ├── phish-forge/           # Phishing generator
 ├── payload-chef/          # Malware generator
 ├── c2-chameleon/          # C&C server
 ├── vuln-oracle/           # Vulnerability scanner
 ├── defense-radar/         # Defense scanner
-├── requirements.txt       # Python dependencies
 └── README.md             # Project documentation
 ```
 
