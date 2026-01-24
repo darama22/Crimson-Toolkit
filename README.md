@@ -15,58 +15,96 @@
 
 ---
 
-## Tools
+## Tools & Interface Previews
 
 ### 1. Target Scout (OSINT Reconnaissance)
 Automated intelligence gathering and target profiling.
 
-*   LinkedIn employee enumeration
-*   Email discovery (Hunter.io integration)
-*   Domain/subdomain scanning
-*   Social media profiling
-*   Executive summary generation
+```console
+$ python target-scout.py --company "TechCorp"
+╔═══════════════════════════════════════════════════════════╗
+║                      TARGET-SCOUT v1.0                    ║
+║               Automated OSINT & Reconnaissance            ║
+╚═══════════════════════════════════════════════════════════╝
+[*] Target: TechCorp
+[+] Scanning domain...
+[+] Enumerating employees (LinkedIn)...
+[+] Discovery: 12 emails found
+[+] Report generated: TechCorp_profile.json
+```
 
 ### 2. Phish Forge (AI-Powered Phishing)
-Create realistic phishing campaigns with AI-generated content.
+Create realistic phishing campaigns with AI-generated content. Includes 44 pre-built templates.
 
-*   44 pre-built templates (Instagram, Google, Microsoft, PayPal, etc.)
-*   AI-generated personalized emails
-*   Credential capture server
-*   Web dashboard
+```console
+$ python phish-forge.py generate --template instagram
+[+] AI Engine: Generating personalized phishing email...
+[+] Template: Instagram Login
+[+] Server: Started on port 8080
+[+] URL: http://localhost:8080/instagram/login.php
+```
 
 ### 3. Payload Chef (Polymorphic Malware Generator)
 Generate evasive payloads with advanced anti-detection features.
 
-*   Polymorphic code generation
-*   AMSI bypass (memory patching)
-*   Sandbox detection (CPU/RAM/timing checks)
-*   Parent process spoofing
-*   Output: Compiled Go binaries
+```console
+$ python payload-chef.py create --type reverse-shell
+[+] Evasion Level: High
+[+] Obfuscation: Applied (Polymorphic)
+[+] AMSI Bypass: Injected
+[+] Compiling Go binary...
+[+] Success: output/payload_x64.exe generated
+```
 
 ### 4. C2 Chameleon (Command & Control)
-Manage compromised agents with tactical assistance.
+Manage compromised agents with tactical assistance. Features a real-time TUI dashboard.
 
-*   Terminal-based dashboard (TUI)
-*   **Auto-channel switching** (TCP → HTTPS → DNS)
-*   Multi-protocol listeners
-*   **Tactical Advisor** (real-time recommendations via AI)
-*   Event logging
+```console
+╭───────────────────────────────────────────────────────────────────────────╮
+│               C2-CHAMELEON v1.0                                           │
+╰───────────────────────────────────────────────────────────────────────────╯
+╭──── System Status ────╮╭─────────────────── Event Log ────────────────────╮
+│  Metric        Value  ││ [13:28:11] [INFO] Starting C2-CHAMELEON listener │
+│  Active        0      ││ [13:28:15] [WARN] Heartbeat missed: Agent-01     │
+│  Agents               ││ [13:28:16] [AUTO] Switching channel to HTTPS...  │
+│  Active        ● TCP  │╭─── 🧠 AI Tactical Advisor (Project Overmind) ────╮
+│  Channel              ││ AI Advisor initialized. Monitoring tactical      │
+│  Listeners     3      ││ logs for evasion opportunities...                │
+│                       │╰───────────────────────────────────────────────────
+╰───────────────────────╯
+```
 
 ### 5. Vuln Oracle v2.0 (Hybrid Vulnerability Scanner)
 Detect vulnerabilities and malware detection in source code.
 
-*   **Hybrid Detection Engine:** Static Analysis (regex) + Heuristic + AI Analysis
-*   **Multi-language Support:** Python, JavaScript, PHP, C/C++, Go, Java
-*   **Detections:** SQLi, XSS, Buffer Overflow, RCE, Ransomware, Keyloggers, Backdoors
-*   Line-level reporting and risk scoring
+```console
+$ python vuln-oracle.py malware.py
+╭──── ⚠ 4 THREATS DETECTED - Risk Score: 100 ─────────╮
+│ ┏━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━┓ │
+│ ┃ Type        ┃ Severity ┃   Line   ┃ Description ┃ │
+│ ┡━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━┩ │
+│ │ Ransomware  │ Critical │ 106, 115 │ Encryption  │ │
+│ │ Pattern     │          │          │ logic       │ │
+│ │ Backdoor    │ Critical │ 12       │ Socket exec │ │
+│ └─────────────┴──────────┴──────────┴─────────────┘ │
+╰─────────────────────────────────────────────────────╯
+```
 
 ### 6. Defense Radar (Defense Detection)
 Identify security defenses on target networks.
 
-*   Network port scanning (nmap with socket fallback)
-*   Service fingerprinting
-*   Defense detection: Firewalls, EDR, WAF, IDS/IPS
-*   Attack vector suggestions
+```console
+$ python defense-radar.py 192.168.1.1
+[*] Scanning target: 192.168.1.1
+[*] Phase 1: Port Discovery
+⠸ Socket scanning 14 common ports...
+[+] Found 3 open ports (socket scan)
+[+] Detected Defenses:
+    - Windows Defender (High Confidence)
+    - Host Firewall (Medium Confidence)
+[+] AI Tactical Advice:
+    "Primary vector: SMB exploitations due to exposed port 445..."
+```
 
 ---
 
