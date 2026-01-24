@@ -2,7 +2,7 @@
 set -e
 
 # Crimson Toolkit Installer for Kali Linux / Debian
-# Auto-handles venv AND creates global commands
+# Auto-handles venv AND creates global commands AND sets up AI
 
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -17,7 +17,7 @@ echo -e "\n${BLUE}[*] Checking system dependencies...${NC}"
 if [ -x "$(command -v apt)" ]; then
     echo "Installing python3-venv, nmap, golang..."
     sudo apt update -qq
-    sudo apt install -y python3-venv nmap golang-go
+    sudo apt install -y python3-venv nmap golang-go curl
 else
     echo -e "${RED}[!] apt not found. Make sure system deps are installed.${NC}"
 fi
@@ -70,20 +70,34 @@ create_shortcut "defense-radar" "defense-radar/defense-radar.py"
 
 echo -e "${GREEN}[+] Shortcuts installed in /usr/local/bin${NC}"
 
-# 5. Ollama (Optional)
-echo -e "\n${BLUE}[?] Install/Setup Ollama for AI? [y/N]${NC}"
-read -r response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-    if ! [ -x "$(command -v ollama)" ]; then
-        curl https://ollama.ai/install.sh | sh
-    fi
-    ollama pull llama3.1:8b
+# 5. AI Model Setup (AUTO)
+echo -e "\n${BLUE}[*] Configuring AI Engine (Ollama)...${NC}"
+
+# Check if Ollama is installed
+if ! [ -x "$(command -v ollama)" ]; then
+    echo "Ollama not found. Installing..."
+    curl https://ollama.ai/install.sh | sh
+else
+    echo -e "${GREEN}[+] Ollama is installed.${NC}"
 fi
 
+# Check if Ollama service is running, if not start it temporarily
+if ! pgrep -x "ollama" > /dev/null; then
+    echo "Starting Ollama service..."
+    ollama serve &
+    OLLAMA_PID=$!
+    sleep 5 # Wait for it to start
+fi
+
+# Pull the model automatically
+echo -e "${BLUE}[*] Downloading AI Model (llama3.1:8b)... This might take a while.${NC}"
+ollama pull llama3.1:8b
+
+echo -e "${GREEN}[+] AI Model ready.${NC}"
+
 echo -e "\n${GREEN}╔═════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║           INSTALLATION COMPLETE! GLOBAL COMMANDS READY          ║${NC}"
+echo -e "${GREEN}║           INSTALLATION COMPLETE! AI ENGINE READY                ║${NC}"
 echo -e "${GREEN}╚═════════════════════════════════════════════════════════════════╝${NC}"
-echo -e "\nNow you can run tools from ANYWHERE just by typing their name:"
+echo -e "\nNow you can run tools from ANYWHERE:"
 echo -e "  $ target-scout --company Test"
-echo -e "  $ payload-chef create --type reverse-shell"
-echo -e "  $ c2-chameleon"
+echo -e "  $ phish-forge generate --template instagram"
