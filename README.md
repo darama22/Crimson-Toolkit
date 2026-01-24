@@ -15,11 +15,19 @@
 
 ---
 
-## Tools & Interface Previews
+## Tools
 
 ### 1. Target Scout (OSINT Reconnaissance)
 Automated intelligence gathering and target profiling.
 
+**Key Features:**
+*   **LinkedIn Enumeration:** Scrapes and identifies employee profiles associated with the target company.
+*   **Email Discovery:** Integrates with Hunter.io to find valid email addresses patterns.
+*   **Domain Scanning:** Enumerates subdomains and maps the digital footprint.
+*   **Social Profiling:** aggregated search across social media platforms.
+*   **Smart Reporting:** Generates comprehensive JSON executive summaries.
+
+**Terminal Preview:**
 ```console
 $ python target-scout.py --company "TechCorp"
 ╔═══════════════════════════════════════════════════════════╗
@@ -34,8 +42,15 @@ $ python target-scout.py --company "TechCorp"
 ```
 
 ### 2. Phish Forge (AI-Powered Phishing)
-Create realistic phishing campaigns with AI-generated content. Includes 44 pre-built templates.
+Create realistic phishing campaigns with AI-generated content.
 
+**Key Features:**
+*   **44 Pre-built Templates:** Includes clones of Instagram, Google, Microsoft, PayPal, and more.
+*   **AI Content Engine:** Uses Ollama to generate context-aware, personalized phishing emails that bypass spam filters.
+*   **Credential Capture:** Built-in web server to capture and log submitted credentials (for testing purposes).
+*   **Web Dashboard:** Professional interface to manage campaigns and view captured data.
+
+**Terminal Preview:**
 ```console
 $ python phish-forge.py generate --template instagram
 [+] AI Engine: Generating personalized phishing email...
@@ -47,6 +62,14 @@ $ python phish-forge.py generate --template instagram
 ### 3. Payload Chef (Polymorphic Malware Generator)
 Generate evasive payloads with advanced anti-detection features.
 
+**Key Features:**
+*   **Polymorphic Engine:** Generates unique code signatures for every payload to evade static analysis.
+*   **AMSI Bypass:** Implements memory patching techniques to disable Antimalware Scan Interface.
+*   **Sandbox Detection:** Checks CPU cores, RAM size, and timing to detect if running in a virtual analysis environment.
+*   **Parent Process Spoofing:** Masquerades the payload under legitimate system processes (e.g., explorer.exe).
+*   **Go Compilation:** Compiles payloads into standalone executables (.exe).
+
+**Terminal Preview:**
 ```console
 $ python payload-chef.py create --type reverse-shell
 [+] Evasion Level: High
@@ -57,8 +80,15 @@ $ python payload-chef.py create --type reverse-shell
 ```
 
 ### 4. C2 Chameleon (Command & Control)
-Manage compromised agents with tactical assistance. Features a real-time TUI dashboard.
+Manage compromised agents with tactical assistance.
 
+**Key Features:**
+*   **Auto-Channel Switching:** Automatically rotates communication protocols (TCP → HTTPS → DNS) if a connection fails or is blocked.
+*   **AI Tactical Advisor:** Analyzes session logs in real-time and suggests commands or evasion strategies.
+*   **Multi-Protocol Listeners:** Supports simultaneous listeners on different ports/protocols.
+*   **TUI Dashboard:** Professional terminal user interface built with the Rich library.
+
+**Terminal Preview:**
 ```console
 ╭───────────────────────────────────────────────────────────────────────────╮
 │               C2-CHAMELEON v1.0                                           │
@@ -75,8 +105,15 @@ Manage compromised agents with tactical assistance. Features a real-time TUI das
 ```
 
 ### 5. Vuln Oracle v2.0 (Hybrid Vulnerability Scanner)
-Detect vulnerabilities and malware detection in source code.
+Detect vulnerabilities and malware signatures in source code.
 
+**Key Features:**
+*   **Hybrid Detection:** Combines static analysis (regex), heuristic analysis (behavior), and AI analysis (LLM) for high accuracy.
+*   **Multi-Language:** Supports scanning of Python, JavaScript, PHP, C/C++, Go, and Java files.
+*   **Threat Detection:** Identifies SQL Injections, XSS, RCE, Buffer Overflows, and malware patterns (Ransomware, Keyloggers).
+*   **Detailed Reporting:** unique feature that pinpoints specific line numbers and provides a risk score (0-100).
+
+**Terminal Preview:**
 ```console
 $ python vuln-oracle.py malware.py
 ╭──── ⚠ 4 THREATS DETECTED - Risk Score: 100 ─────────╮
@@ -91,8 +128,15 @@ $ python vuln-oracle.py malware.py
 ```
 
 ### 6. Defense Radar (Defense Detection)
-Identify security defenses on target networks.
+Identify security defenses on target networks without triggering alerts.
 
+**Key Features:**
+*   **Stealth Scanning:** Uses socket-based scanning with fallback to nmap for maximizing stealth.
+*   **Defense Fingerprinting:** specific signatures to detect Firewalls, EDR solutions (like Windows Defender), and WAFs.
+*   **Service Enumeration:** Identifies running services and versions.
+*   **AI Tactical Advice:** Provides actionable recommendations on attack vectors based on the detected defenses.
+
+**Terminal Preview:**
 ```console
 $ python defense-radar.py 192.168.1.1
 [*] Scanning target: 192.168.1.1
