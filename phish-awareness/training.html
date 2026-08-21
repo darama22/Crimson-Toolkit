@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acme Corp — Sign in</title>
+<style>
+  :root { --bg:#f0f2f5; --card:#fff; --accent:#1877f2; --danger:#c0392b;
+           --ok:#2e7d32; --text:#1c1e21; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;
+          background:var(--bg); color:var(--text);
+          display:flex; align-items:center; justify-content:center;
+          min-height:100vh; padding:16px; }
+  .card { background:var(--card); width:100%; max-width:400px; border-radius:12px;
+           box-shadow:0 2px 16px rgba(0,0,0,.12); padding:28px; }
+  .brand { text-align:center; font-size:28px; font-weight:800;
+            color:var(--accent); margin-bottom:6px; }
+  .warn { font-size:12px; text-align:center; color:#666; margin-bottom:18px; }
+  input { width:100%; padding:14px; margin:8px 0; border:1px solid #ccd0d5;
+           border-radius:8px; font-size:15px; }
+  button { width:100%; padding:14px; margin-top:8px; border:0; border-radius:8px;
+            background:var(--accent); color:#fff; font-size:17px; font-weight:700;
+            cursor:pointer; }
+  .reveal { display:none; margin-top:20px; }
+  .reveal.show { display:block; }
+  .banner { background:#fdecea; border:1px solid var(--danger); color:var(--danger);
+             padding:14px; border-radius:8px; font-weight:700; text-align:center; }
+  .flags { list-style:none; padding:0; margin:16px 0 0; }
+  .flags li { background:#fff8e1; border-left:4px solid #f39c12; margin:8px 0;
+               padding:10px 12px; border-radius:6px; font-size:14px; }
+  .flags b { display:block; color:#7a5c00; margin-bottom:2px; }
+  .score { text-align:center; font-size:18px; font-weight:800; margin-top:16px;
+            color:var(--ok); }
+  .again { background:#42b72a; }
+  footer { text-align:center; font-size:11px; color:#8a8d91; margin-top:18px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">Acme Corp</div>
+    <div class="warn">⚠️ Anti-phishing TRAINING simulator — nothing you type is saved or sent.</div>
+
+    <form id="loginForm" autocomplete="off">
+      <input type="text" id="user" placeholder="Email or phone" aria-label="user">
+      <input type="password" id="pass" placeholder="Password" aria-label="password">
+      <button type="submit">Log in</button>
+    </form>
+
+    <div class="reveal" id="reveal">
+      <div class="banner">🎣 This was a phishing simulation. In a real attack, your
+        credentials would now be in an attacker's hands.</div>
+      <p style="font-size:14px">Here are the red flags this page contained:</p>
+      <ul class="flags"><li><b>URL / domain</b>The address bar did not show the real company domain — phishing pages live on look-alike or unrelated URLs.</li><li><b>No password should be typed</b>You entered a password into a page you reached from a link. Always navigate to the site yourself instead.</li><li><b>Urgency &amp; fear</b>Wording like &#x27;account suspended&#x27; or &#x27;verify now&#x27; is engineered to make you act before you think.</li><li><b>Where the form sends data</b>A real login posts to the brand&#x27;s own secure domain; kits post to a stranger&#x27;s server or write your input to a file.</li><li><b>Certificate &amp; padlock</b>Check for HTTPS and a valid certificate matching the exact brand domain — not a subdomain trick like brand.secure-login.co.</li><li><b>Unexpected context</b>You did not initiate this login. Unsolicited login prompts arriving by email/DM are the number-one phishing delivery method.</li></ul>
+      <div class="score" id="score"></div>
+      <button class="again" onclick="location.reload()">Try again / reset</button>
+    </div>
+
+    <footer>Educational tool · No data collection · Crimson Toolkit — phish-awareness</footer>
+  </div>
+
+<script>
+(function () {
+  // SECURITY NOTE: this handler intentionally does NOTHING with the input.
+  // The credentials are read only to prove to the learner they were exposed,
+  // then immediately discarded. No storage, no network, no logging.
+  var form = document.getElementById('loginForm');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var typedPassword = document.getElementById('pass').value.length > 0;
+    // Discard input immediately.
+    document.getElementById('user').value = '';
+    document.getElementById('pass').value = '';
+    form.style.display = 'none';
+    var reveal = document.getElementById('reveal');
+    reveal.classList.add('show');
+    var msg = typedPassword
+      ? "You typed a password into an unverified page. Awareness score: 0/1 — but now you know."
+      : "Good instinct — you hesitated on the password. Awareness score: 1/1.";
+    document.getElementById('score').textContent = msg;
+  });
+})();
+</script>
+</body>
+</html>
